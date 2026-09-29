@@ -27,7 +27,7 @@ NBP_RecommendationSystem/
 ├── notebooks/
 │   └── trivago_recsys_eda.ipynb
 ├── sample_data/
-│   └── Trivago_RecSys_Challenge_2019/raw/  # dữ liệu cục bộ, không commit
+│   └── Trivago_RecSys_Challenge_2019/raw/  # CSV được quản lý bằng Git LFS
 ├── src/vsf_recommendation_system/
 ├── pyproject.toml
 └── README.md
@@ -43,15 +43,27 @@ python -m pip install -e ".[eda]"
 
 ## Chuẩn bị dữ liệu Trivago
 
-Dữ liệu raw không được lưu trên Git vì có dung lượng gần 3 GB. Đặt ba file
-được notebook sử dụng vào:
+Bốn file CSV raw có tổng dung lượng khoảng 2,74 GiB và được quản lý bằng
+**Git Large File Storage (Git LFS)**. Sau khi clone repository, tải dữ liệu bằng:
+
+```bash
+git lfs install
+git lfs pull
+```
+
+Các file nằm tại:
 
 ```text
 sample_data/Trivago_RecSys_Challenge_2019/raw/
 ├── train.csv
 ├── test.csv
-└── item_metadata.csv
+├── item_metadata.csv
+└── submission_popular.csv
 ```
+
+Notebook EDA chỉ đọc `train.csv`, `test.csv` và `item_metadata.csv`;
+`submission_popular.csv` được lưu cùng bộ dữ liệu nhưng không được dùng để tính
+các thống kê EDA.
 
 Có thể đặt dữ liệu ở vị trí khác bằng biến môi trường `TRIVAGO_DATA_ROOT`.
 Giá trị biến phải trỏ tới thư mục chứa thư mục con `raw/`.
